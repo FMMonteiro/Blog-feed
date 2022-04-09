@@ -18,6 +18,7 @@ const routes: Routes = [
         component: FeedComponent,
       },
       {
+        // mudar de slug pra id
         path: 'feed/:slug',
         component: PostDetailsComponent,
       },

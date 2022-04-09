@@ -1,5 +1,5 @@
 <h2>feed component</h2>
-<ng-container *ngIf="test$ | async as posts; else loading">
+<ng-container *ngIf="posts$ | async as posts; else loading">
   <ng-container *ngIf="posts.length > 0; else emptyState">
     <div>
       <ng-container *ngFor="let item of posts">
@@ -7,6 +7,7 @@
         <p>{{ item.author }}</p>
         <p>{{ item.publish_date }}</p>
         <p>{{ item.description }}</p>
+        <p>{{ item.slug }}</p>
         <a [routerLink]="'/feed/' + item.id" target="_blank">More details</a>
         <hr />
       </ng-container>

@@ -10,19 +10,19 @@ import { PostData } from './feed.typings';
   templateUrl: './feed.component.html',
 })
 export class FeedComponent implements OnInit {
-  // apagar isto do undefined
-  public test$: Observable<PostData[]> | undefined; // = new Observable<PostData[]>();
+  public posts$: Observable<PostData[]> = new Observable<PostData[]>();
 
   constructor(private service: FeedService) {}
 
   public ngOnInit(): void {
-    console.log('feed on init');
+    // console.log('feed on init');
 
-    this.test$ = this.service.getFeedPosts().pipe(
+    this.posts$ = this.service.getFeedPosts().pipe(
       tap((data) => {
-        console.log(data);
+        // console.log(data);
 
         // validar isto das datas quando tiver outros posts com data diferentes
+        // passar para um pipe talvez e pôr no template no ngFor
 
         data.sort((obj1, obj2) =>
           (<string>obj1.publish_date).localeCompare(

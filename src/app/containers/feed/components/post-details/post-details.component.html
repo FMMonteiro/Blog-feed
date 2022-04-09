@@ -1,1 +1,39 @@
 <h2>post details</h2>
+<div class="row">
+  <div class="col-md-4">a</div>
+  <div class="col-md-4">a</div>
+  <div class="col-md-4">a</div>
+</div>
+
+<ng-container *ngIf="post$ | async as item; else loading">
+  <div>
+    <p>{{ item.title }}</p>
+    <p>{{ item.author }}</p>
+    <p>{{ item.publish_date }}</p>
+    <p>{{ item.description }}</p>
+    <p>{{ item.slug }}</p>
+    <hr />
+  </div>
+</ng-container>
+<ng-template #loading> Loading...</ng-template>
+<!-- apagar este empty state talvez -->
+<ng-template #emptyState>
+  There are no comments yet, be the first to comment this post!
+</ng-template>
+<section>
+  <h2>Comments</h2>
+  <ng-container *ngIf="comments$ | async as comments; else loading">
+    <ng-container *ngIf="comments.length > 0; else emptyState">
+      <div>
+        <p>cenas</p>
+        <!-- <ng-container *ngFor="let comment of comments">
+          <p>{{ comment.author }}</p>
+        </ng-container> -->
+      </div>
+    </ng-container>
+  </ng-container>
+  <div class="add-comment-div">
+    <button type="button" (click)="addComment($event)">Add comment</button>
+  </div>
+</section>
+<app-modal (handleCommentPublish)="handleFormSubmission($event)"></app-modal>
