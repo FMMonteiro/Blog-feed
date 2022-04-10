@@ -1,0 +1,53 @@
+:host {
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+
+    h2 {
+      text-align: center;
+      font-size: 30px;
+    }
+
+    section {
+      hr {
+        margin: 48px 24px;
+      }
+      header {
+        display: flex;
+        align-items: center;
+
+        .initials {
+          color: white;
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: bold;
+          text-transform: uppercase;
+        }
+
+        .author {
+          font-size: 16px;
+          margin-left: 12px;
+          flex: 1;
+        }
+      }
+
+      .description {
+        font-size: 24px;
+      }
+
+      .comments-counter {
+        font-size: 16px;
+        font-weight: bold;
+        color: darkgray;
+      }
+
+      //   .details {
+      //     text-align: center;
+      //   }
+    }
+  }
+}

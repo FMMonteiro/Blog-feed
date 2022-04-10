@@ -1,19 +1,37 @@
-<h2>feed component</h2>
-<ng-container *ngIf="posts$ | async as posts; else loading">
-  <ng-container *ngIf="posts.length > 0; else emptyState">
-    <div>
-      <ng-container *ngFor="let item of posts">
-        <p>{{ item.title }}</p>
-        <p>{{ item.author }}</p>
-        <p>{{ item.publish_date }}</p>
-        <p>{{ item.description }}</p>
-        <p [innerHTML]="item.content"></p>
-        <p>{{ item.slug }}</p>
-        <a [routerLink]="'/feed/' + item.id" target="_blank">More details</a>
-        <hr />
-      </ng-container>
-    </div>
+<div class="container">
+  <h2>New posts feed</h2>
+  <ng-container *ngIf="posts$ | async as posts; else loading">
+    <ng-container *ngIf="posts.length > 0; else emptyState">
+      <section>
+        <ng-container *ngFor="let item of posts">
+          <header>
+            <!-- deixar isto ou por um logo default? -->
+            <div class="initials" [style.background-color]="item.avatar_color">
+              {{ getInitials(item.author) }}
+            </div>
+            <p class="author">{{ item.author }}</p>
+            <p>{{ item.publish_date }}</p>
+          </header>
+          <h3>{{ item.title }}</h3>
+          <p class="description">{{ item.description }}</p>
+          <ng-container *ngIf="item.comments && item.comments.length > 0">
+            <span class="comments-counter">
+              {{ item?.comments?.length }} comments
+            </span>
+          </ng-container>
+          <p class="details">
+            Click
+            <a [routerLink]="'/feed/' + item.id" target="_blank">here</a> to see
+            more details.
+          </p>
+
+          <hr />
+        </ng-container>
+      </section>
+    </ng-container>
+    <ng-template #emptyState> No posts to show!</ng-template>
   </ng-container>
-  <ng-template #emptyState> No posts to show! </ng-template>
-</ng-container>
-<ng-template #loading> Loading...</ng-template>
+  <ng-template #loading> Loading...</ng-template>
+</div>
+<!-- <p [innerHTML]="item.content"></p>
+<p>{{ item.slug }}</p> -->

@@ -9,7 +9,9 @@ export class FeedService {
   constructor(private client: HttpClient) {}
 
   public getFeedPosts(): Observable<PostData[]> {
-    const endpoint: string = 'http://localhost:9000/posts';
+    // const endpoint: string = 'http://localhost:9000/posts';
+    const endpoint: string =
+      'http://localhost:9000/posts?_sort=publish_date&_order=desc&_embed=comments';
 
     return this.client.get(endpoint, {}).pipe(first()) as Observable<
       PostData[]

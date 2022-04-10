@@ -6,6 +6,8 @@ export interface PostData {
   slug: string;
   description: string;
   content: string;
+  avatar_color?: string;
+  comments?: CommentData[];
 }
 
 export interface CommentData {
