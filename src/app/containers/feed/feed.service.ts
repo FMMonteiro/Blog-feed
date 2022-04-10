@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { first, pluck } from 'rxjs/operators';
-import { PostData } from './feed.typings';
+import { first } from 'rxjs/operators';
+import { CommentData, PostData } from './feed.typings';
 
 @Injectable()
 export class FeedService {
@@ -22,23 +22,32 @@ export class FeedService {
     return this.client.get(endpoint, {}).pipe(first()) as Observable<PostData>;
   }
 
-  public getPostComments(postId: number): Observable<any[]> {
+  public getPostComments(postId: number): Observable<CommentData[]> {
     const endpoint: string = `http://localhost:9000/posts/${postId}/comments`;
 
-    return this.client.get(endpoint, {}).pipe(first()) as Observable<any[]>;
+    return this.client.get(endpoint, {}).pipe(first()) as Observable<
+      CommentData[]
+    >;
   }
 
   // typing
-  public addComment(postId: number, data: any): Observable<any[]> {
+  public addComment(postId: number, data: CommentData): Observable<unknown> {
     const endpoint: string = `http://localhost:9000/posts/${postId}/comments`;
 
-    return this.client.post(endpoint, data).pipe(first()) as Observable<any[]>;
+    return this.client
+      .post(endpoint, data)
+      .pipe(first()) as Observable<unknown>;
   }
 
   // typing
-  public updateComment(commentId: number, data: any): Observable<any[]> {
+  public updateComment(
+    commentId: number,
+    data: CommentData
+  ): Observable<CommentData> {
     const endpoint: string = `http://localhost:9000/comments/${commentId}`;
 
-    return this.client.put(endpoint, data).pipe(first()) as Observable<any[]>;
+    return this.client
+      .put(endpoint, data)
+      .pipe(first()) as Observable<CommentData>;
   }
 }

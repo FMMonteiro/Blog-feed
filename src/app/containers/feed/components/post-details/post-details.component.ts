@@ -1,10 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable, of, Subject } from 'rxjs';
 import { catchError, takeUntil, tap } from 'rxjs/operators';
 import { FeedService } from '../../feed.service';
-import { PostData } from '../../feed.typings';
+import { CommentData, PostData } from '../../feed.typings';
+import { CommentFormComponent } from '../comment-form/comment-form.component';
 import { ModalService } from '../modal/modal.service';
 
 @Component({
@@ -13,6 +14,8 @@ import { ModalService } from '../modal/modal.service';
   templateUrl: './post-details.component.html',
 })
 export class PostDetailsComponent implements OnInit, OnDestroy {
+  @ViewChild(CommentFormComponent) public commentForm!: CommentFormComponent;
+
   public post$: Observable<PostData> = new Observable<PostData>();
   public comments$: Observable<any[]> = new Observable<any[]>();
   public postId: number = 0;
@@ -79,32 +82,21 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
     this.modalService.openModal();
   }
   // typing
-  public handleFormSubmission(event: any): void {
+  public handleFormSubmission(event: CommentData): void {
     console.log(event);
 
-    // this.service
-    //   .updateComment(8, {
-    //     postId: 3,
-    //     author: 'Alice',
-    //     date: new Date(),
-    //     comment: 'Hello, nice post!',
-    //   })
-    //   .subscribe();
+    // this.service.updateComment(9, event).subscribe();
 
-    // this.service
-    //   .addComment(this.postId, {
-    //     author: 'Mickael',
-    //     date: new Date(),
-    //     comment: 'Hey hey, this is a dummy comment. Liked your post!',
-    //   })
-    //   .subscribe(
-    //     () => {
-    //       console.log('success on form adding comment');
-    //     },
-    //     (error: HttpErrorResponse) => {
-    //       console.log(error);
-    //     }
-    //   );
+    this.service.addComment(this.postId, event).subscribe(
+      () => {
+        console.log('success on form adding comment');
+        this.commentForm.form.reset();
+        this.comments$ = this.service.getPostComments(this.postId);
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+      }
+    );
     // so se der sucesso no form submit é q se fecha o popup
   }
 }

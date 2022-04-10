@@ -25,15 +25,18 @@
   <ng-container *ngIf="comments$ | async as comments; else loading">
     <ng-container *ngIf="comments.length > 0; else emptyState">
       <div>
-        <p>cenas</p>
-        <!-- <ng-container *ngFor="let comment of comments">
-          <p>{{ comment.author }}</p>
-        </ng-container> -->
+        <ng-container *ngFor="let comment of comments">
+          <p>{{ comment.user }}</p>
+          <p>{{ comment.date }}</p>
+          <p>{{ comment.content }}</p>
+          <hr />
+        </ng-container>
       </div>
     </ng-container>
   </ng-container>
-  <div class="add-comment-div">
+  <!-- <div class="add-comment-div">
     <button type="button" (click)="addComment($event)">Add comment</button>
-  </div>
+  </div> -->
 </section>
 <app-modal (handleCommentPublish)="handleFormSubmission($event)"></app-modal>
+<app-comment-form (formData)="handleFormSubmission($event)"></app-comment-form>

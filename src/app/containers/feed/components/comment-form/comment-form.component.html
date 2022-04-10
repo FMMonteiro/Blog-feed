@@ -1,0 +1,47 @@
+<div class="form-section">
+  <h2>Add a comment to this post</h2>
+  <form [formGroup]="form" (ngSubmit)="onSubmit($event)">
+    <div>
+      <!-- <label for="user_name"> Name </label> -->
+      <input id="user" placeholder="User" type="text" formControlName="user" />
+      <p
+        *ngIf="
+          form.get('user')?.hasError('required') &&
+          (form.get('user')?.touched || form.get('user')?.dirty)
+        "
+      >
+        * Field is required.
+      </p>
+      <p
+        *ngIf="
+          form.get('user')?.hasError('pattern') &&
+          (form.get('user')?.dirty || form.get('user')?.touched)
+        "
+      >
+        Field contains invalid characters.
+      </p>
+    </div>
+
+    <div>
+      <!-- <label for="comment"> Comment </label> -->
+      <textarea
+        id="content"
+        placeholder="Comment"
+        type="text"
+        formControlName="content"
+        rows="6"
+      ></textarea>
+      <p
+        *ngIf="
+          form?.get('content')?.hasError('required') &&
+          (form?.get('content')?.touched || form?.get('content')?.dirty)
+        "
+      >
+        * Field is required.
+      </p>
+    </div>
+
+    <!-- <button class="button" (click)="onCancel($event)">Cancel</button> -->
+    <button class="button" type="submit">Submit</button>
+  </form>
+</div>

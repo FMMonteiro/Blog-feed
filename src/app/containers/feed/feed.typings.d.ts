@@ -7,3 +7,12 @@ export interface PostData {
   description: string;
   content: string;
 }
+
+export interface CommentData {
+  id?: number;
+  postId?: number;
+  parent_id?: number;
+  user: string;
+  date?: string;
+  content: string;
+}
