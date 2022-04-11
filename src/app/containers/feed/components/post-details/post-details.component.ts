@@ -6,7 +6,6 @@ import { catchError, takeUntil, tap } from 'rxjs/operators';
 import { FeedService } from '../../feed.service';
 import { CommentData, PostData } from '../../feed.typings';
 import { CommentFormComponent } from '../comment-form/comment-form.component';
-import { ModalService } from '../modal/modal.service';
 
 @Component({
   selector: 'app-post-details',
@@ -24,25 +23,18 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private activeRoute: ActivatedRoute,
     private service: FeedService,
-    private router: Router,
-    private modalService: ModalService
+    private router: Router
   ) {
     this.destroyer$ = new Subject<void>();
   }
 
   public ngOnInit(): void {
-    // console.log('post details init');
-
     this.activeRoute.params
       .pipe(takeUntil(this.destroyer$))
       .subscribe((params: Params) => {
-        // console.log(params);
         if (params?.slug) {
-          // console.log(params.slug);
           this.post$ = this.service.getSinglePost(params.slug).pipe(
             tap((info) => {
-              // console.log('info');
-              // console.log(info);
               this.postId = info.id;
               this.comments$ = this.service.getPostComments(info.id);
             }),
@@ -75,13 +67,6 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
     this.destroyer$.next();
   }
 
-  public addComment(ev: MouseEvent): void {
-    ev.preventDefault();
-
-    console.log('add comment clicked');
-    this.modalService.openModal();
-  }
-  // typing
   public handleFormSubmission(event: CommentData): void {
     console.log(event);
 
@@ -95,8 +80,8 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
       },
       (error: HttpErrorResponse) => {
         console.log(error);
+        // snackbar?
       }
     );
-    // so se der sucesso no form submit é q se fecha o popup
   }
 }
