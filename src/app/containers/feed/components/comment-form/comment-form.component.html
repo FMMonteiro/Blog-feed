@@ -1,14 +1,20 @@
 <div class="form-section">
   <h2>Add a comment to this post</h2>
+
   <form [formGroup]="form" (ngSubmit)="onSubmit($event)">
     <div>
-      <!-- <label for="user_name"> Name </label> -->
-      <input id="user" placeholder="User" type="text" formControlName="user" />
+      <input
+        id="user"
+        placeholder="User name"
+        type="text"
+        formControlName="user"
+      />
       <p
         *ngIf="
           form.get('user')?.hasError('required') &&
           (form.get('user')?.touched || form.get('user')?.dirty)
         "
+        class="error"
       >
         * Field is required.
       </p>
@@ -17,6 +23,7 @@
           form.get('user')?.hasError('pattern') &&
           (form.get('user')?.dirty || form.get('user')?.touched)
         "
+        class="error"
       >
         Field contains invalid characters.
       </p>
@@ -36,6 +43,7 @@
           form?.get('content')?.hasError('required') &&
           (form?.get('content')?.touched || form?.get('content')?.dirty)
         "
+        class="error"
       >
         * Field is required.
       </p>

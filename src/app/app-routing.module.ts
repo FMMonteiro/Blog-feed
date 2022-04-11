@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ErrorComponent } from './containers/error/error.component';
 import { PostDetailsComponent } from './containers/feed/components/post-details/post-details.component';
 import { FeedComponent } from './containers/feed/feed.component';
 
-// const routes: Routes = [];
 const routes: Routes = [
   {
     path: '',
@@ -16,32 +16,25 @@ const routes: Routes = [
       {
         path: 'feed',
         component: FeedComponent,
+        // loadChildren: () =>
+        //   import('src/app/containers/feed/feed.module').then(
+        //     (m) => m.FeedModule
+        //   ),
       },
       {
-        // mudar de slug pra id
         path: 'feed/:slug',
         component: PostDetailsComponent,
       },
       {
+        path: 'error',
+        component: ErrorComponent,
+      },
+      {
         path: '**',
-        // redirectTo: '/error',
-        redirectTo: '/feed',
+        redirectTo: '/error',
       },
     ],
   },
-  // {
-  //   path: ':slug',
-  //   component: PostDetailsComponent,
-  // },
-  // {
-  // path: 'error',
-  // fazer depois
-  // loadChildren: () => import('@foursource/platform/app/containers/error/error.api').then(m => m.ErrorModule),
-  // },
-  // {
-  //   path: '**',
-  //   redirectTo: '/error',
-  // },
 ];
 
 @NgModule({

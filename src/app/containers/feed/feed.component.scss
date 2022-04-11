@@ -1,14 +1,32 @@
+@import "src/app/ui/theming/_utilities.scss";
+
 :host {
   .container {
-    max-width: 1200px;
-    margin: 0 auto;
+    // max-width: 1200px;
+    // margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #ffffff;
 
     h2 {
       text-align: center;
-      font-size: 30px;
+      font-size: cr(30px);
     }
 
     section {
+      padding: 16px;
+      .post-div {
+        box-shadow: 0 3px 30px 0 rgb(0 0 0 / 10%);
+        padding: 16px;
+        margin-bottom: 24px;
+
+        &:hover {
+          background-color: #f2f0ef;
+        }
+      }
+
       hr {
         margin: 48px 24px;
       }
@@ -29,18 +47,32 @@
         }
 
         .author {
-          font-size: 16px;
+          font-size: cr(18px);
           margin-left: 12px;
           flex: 1;
+
+          @media (max-width: 768px) {
+            font-size: cr(14px);
+          }
+        }
+
+        .date {
+          @media (max-width: 768px) {
+            font-size: cr(14px);
+          }
         }
       }
 
       .description {
-        font-size: 24px;
+        font-size: cr(24px);
+
+        @media (max-width: 768px) {
+          font-size: cr(16px);
+        }
       }
 
       .comments-counter {
-        font-size: 16px;
+        font-size: cr(16px);
         font-weight: bold;
         color: darkgray;
       }

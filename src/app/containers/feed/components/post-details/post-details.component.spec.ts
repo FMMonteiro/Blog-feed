@@ -44,6 +44,7 @@ describe('PostDetailsComponent', () => {
       content: 'test message',
       user: 'user a',
       id: 3,
+      postId: 5,
     };
 
     let service: FeedService = TestBed.inject(FeedService);

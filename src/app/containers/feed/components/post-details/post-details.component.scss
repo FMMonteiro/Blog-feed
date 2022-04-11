@@ -1,0 +1,27 @@
+:host {
+  img {
+    width: 24px;
+    height: 24px;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+
+    .user {
+      font-size: cr(18px);
+      margin-left: 12px;
+      flex: 1;
+
+      @media (max-width: 768px) {
+        font-size: cr(14px);
+      }
+    }
+
+    .date {
+      @media (max-width: 768px) {
+        font-size: cr(14px);
+      }
+    }
+  }
+}

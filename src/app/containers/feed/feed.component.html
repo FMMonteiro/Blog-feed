@@ -4,28 +4,33 @@
     <ng-container *ngIf="posts.length > 0; else emptyState">
       <section>
         <ng-container *ngFor="let item of posts">
-          <header>
-            <!-- deixar isto ou por um logo default? -->
-            <div class="initials" [style.background-color]="item.avatar_color">
-              {{ getInitials(item.author) }}
-            </div>
-            <p class="author">{{ item.author }}</p>
-            <p>{{ item.publish_date }}</p>
-          </header>
-          <h3>{{ item.title }}</h3>
-          <p class="description">{{ item.description }}</p>
-          <ng-container *ngIf="item.comments && item.comments.length > 0">
-            <span class="comments-counter">
-              {{ item?.comments?.length }} comments
-            </span>
-          </ng-container>
-          <p class="details">
-            Click
-            <a [routerLink]="'/feed/' + item.id" target="_blank">here</a> to see
-            more details.
-          </p>
+          <div class="post-div">
+            <header>
+              <!-- deixar isto ou por um logo default? -->
+              <div
+                class="initials"
+                [style.background-color]="item.avatar_color"
+              >
+                {{ getInitials(item.author) }}
+              </div>
+              <p class="author">{{ item.author }}</p>
+              <p class="date">{{ item.publish_date | date: "mediumDate" }}</p>
+            </header>
+            <h3>{{ item.title }}</h3>
+            <p class="description">{{ item.description }}</p>
+            <ng-container *ngIf="item.comments && item.comments.length > 0">
+              <span class="comments-counter">
+                {{ item?.comments?.length }} comments
+              </span>
+            </ng-container>
+            <p class="details">
+              Click
+              <a [routerLink]="'/feed/' + item.id" target="_blank">here</a> to
+              see more details.
+            </p>
 
-          <hr />
+            <!-- <hr /> -->
+          </div>
         </ng-container>
       </section>
     </ng-container>

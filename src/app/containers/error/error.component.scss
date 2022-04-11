@@ -1,0 +1,56 @@
+@import "src/app/ui/theming/_utilities.scss";
+
+:host {
+  display: block;
+  position: relative;
+
+  text-align: center;
+  padding-top: 100px;
+
+  section {
+    img {
+      width: 120px;
+      height: auto;
+    }
+
+    h1 {
+      font-size: cr(30px);
+      font-weight: bold;
+      margin-bottom: 24px;
+    }
+
+    p {
+      margin-bottom: 24px;
+      font-size: cr(24px);
+    }
+
+    a {
+      font-size: cr(24px);
+    }
+
+    .btn {
+      cursor: pointer;
+      border-radius: 100px;
+      padding: 8px 16px;
+      border: none;
+      font-size: cr(16px);
+
+      background-color: white;
+      color: gray;
+      box-shadow: inset 0 0 0 cr(1px) lightgray;
+
+      //   &:hover,
+      //   &.hover,
+      //   &:focus,
+      //   &:active,
+      //   &.active,
+      //   &:active:focus,
+      //   &.active.focus {
+      //     &:not([disabled]):not(.disabled):not(.readonly) {
+      //       background-color: white;
+      //       color: gray;
+      //     }
+      //   }
+    }
+  }
+}

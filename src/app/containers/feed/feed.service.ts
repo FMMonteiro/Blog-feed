@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
@@ -32,24 +32,15 @@ export class FeedService {
     >;
   }
 
-  // typing
   public addComment(postId: number, data: CommentData): Observable<unknown> {
     const endpoint: string = `http://localhost:9000/posts/${postId}/comments`;
+    let headers: HttpHeaders = new HttpHeaders().set(
+      'Content-Type',
+      'application/json'
+    );
 
     return this.client
-      .post(endpoint, data)
+      .post(endpoint, data, { headers })
       .pipe(first()) as Observable<unknown>;
-  }
-
-  // typing
-  public updateComment(
-    commentId: number,
-    data: CommentData
-  ): Observable<CommentData> {
-    const endpoint: string = `http://localhost:9000/comments/${commentId}`;
-
-    return this.client
-      .put(endpoint, data)
-      .pipe(first()) as Observable<CommentData>;
   }
 }

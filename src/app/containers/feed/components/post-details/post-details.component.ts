@@ -40,7 +40,8 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
             }),
             catchError((err) => {
               console.log(err);
-              this.router.navigate(['/feed']);
+              // this.router.navigate(['/feed']);
+              this.router.navigate(['/error']);
               // return of();
               return of({} as PostData);
             })
@@ -72,16 +73,28 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
 
     // this.service.updateComment(9, event).subscribe();
 
-    this.service.addComment(this.postId, event).subscribe(
-      () => {
-        console.log('success on form adding comment');
-        this.commentForm.form.reset();
-        this.comments$ = this.service.getPostComments(this.postId);
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error);
-        // snackbar?
-      }
-    );
+    // "id": 7,
+    //   "postId": 2,
+    //   "parent_id": null,
+    //   "user": "Natashia",
+    //   "date": "2016-03-17",
+    //   "
+
+    this.service
+      .addComment(this.postId, {
+        ...event,
+        ...{ postId: Number(this.postId), parent_id: null },
+      })
+      .subscribe(
+        () => {
+          console.log('success on form adding comment');
+          this.commentForm.form.reset();
+          this.comments$ = this.service.getPostComments(this.postId);
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error);
+          // snackbar?
+        }
+      );
   }
 }

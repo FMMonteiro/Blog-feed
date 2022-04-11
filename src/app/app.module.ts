@@ -6,18 +6,20 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FeedModule } from './containers/feed/feed.module';
+import { ErrorComponent } from './containers/error/error.component';
 import { FeedService } from './containers/feed/feed.service';
+import { FeedModule } from './containers/feed/feed.module';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ErrorComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     CommonModule,
     ReactiveFormsModule,
-    // FormsModule,
+    FeedModule,
+    FormsModule,
   ],
   providers: [FeedService],
   bootstrap: [AppComponent],
