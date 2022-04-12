@@ -1,34 +1,73 @@
-<h2>Post details</h2>
-<ng-container *ngIf="post$ | async as item; else loading">
-  <div>
-    <p>{{ item.title }}</p>
-    <p>{{ item.author }}</p>
-    <p>{{ item.publish_date }}</p>
-    <p>{{ item.description }}</p>
-    <p>{{ item.slug }}</p>
-    <hr />
-  </div>
-</ng-container>
-<ng-template #loading> Loading...</ng-template>
-<ng-template #emptyState>
-  There are no comments yet, be the first to comment this post!
-</ng-template>
-<section>
-  <h2>Comments</h2>
-  <ng-container *ngIf="comments$ | async as comments; else loading">
-    <ng-container *ngIf="comments.length > 0; else emptyState">
-      <section>
-        <ng-container *ngFor="let comment of comments">
-          <header>
-            <img src="/assets/user_default.png" />
-            <p class="user">{{ comment.user }}</p>
-            <p class="date">{{ comment.date }}</p>
-          </header>
-          <p>{{ comment.content }}</p>
-          <hr />
-        </ng-container>
-      </section>
-    </ng-container>
+<div class="top-bar">
+  <p>Published on Filipe's website</p>
+  <a href="/feed" title="Back to"> Go back to list</a>
+</div>
+<div class="container">
+  <ng-container *ngIf="post$ | async as item; else loading">
+    <section class="details-section">
+      <header>
+        <div class="initials" [style.background-color]="userColor">
+          {{ getInitials(item.author) }}
+        </div>
+        <div class="writer">
+          <p class="user">{{ item.author }}</p>
+          <p class="user">
+            Published on
+            <span class="date">{{
+              item.publish_date | date: "mediumDate"
+            }}</span>
+          </p>
+        </div>
+        <div class="about">
+          <a
+            href="https://facebook.com"
+            target="_blank"
+            title="Writer facebook"
+          >
+            <img src="/assets/fb.png" alt="facebook" />
+          </a>
+          <a href="https://twitter.com" target="_blank" title="Writer twitter">
+            <img src="/assets/tw.png" alt="twitter" />
+          </a>
+          <a
+            href="https://linkedin.com"
+            target="_blank"
+            title="Writer linkedin"
+          >
+            <img src="/assets/ln.png" alt="linkedin" />
+          </a>
+        </div>
+      </header>
+      <h1 class="title">{{ item.title }}</h1>
+      <h2 class="description">{{ item.description }}</h2>
+      <p class="content" [innerHTML]="item.content"></p>
+    </section>
   </ng-container>
-</section>
-<app-comment-form (formData)="handleFormSubmission($event)"></app-comment-form>
+  <ng-template #loading> Loading...</ng-template>
+  <ng-template #emptyState>
+    There are no comments yet, be the first to comment this post!
+  </ng-template>
+  <section class="comments-section">
+    <h2>
+      Comments <span>({{ commentsCount }} comments)</span>
+    </h2>
+    <ng-container *ngIf="comments$ | async as comments; else loading">
+      <ng-container *ngIf="comments.length > 0; else emptyState">
+        <section>
+          <ng-container *ngFor="let comment of comments; let last = last">
+            <header>
+              <img src="/assets/user_default.png" alt="default user" />
+              <p class="user">{{ comment.user }}</p>
+              <p class="date">{{ comment.date | date: "mediumDate" }}</p>
+            </header>
+            <pre>{{ comment.content }}</pre>
+            <hr *ngIf="!last" />
+          </ng-container>
+        </section>
+      </ng-container>
+    </ng-container>
+  </section>
+  <app-comment-form
+    (formData)="handleFormSubmission($event)"
+  ></app-comment-form>
+</div>

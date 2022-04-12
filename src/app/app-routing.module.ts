@@ -22,7 +22,7 @@ const routes: Routes = [
         //   ),
       },
       {
-        path: 'feed/:slug',
+        path: 'feed/:id',
         component: PostDetailsComponent,
       },
       {

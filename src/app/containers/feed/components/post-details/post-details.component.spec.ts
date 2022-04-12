@@ -19,7 +19,7 @@ describe('PostDetailsComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            params: of([{ slug: 1 }]),
+            params: of([{ id: 1 }]),
           },
         },
       ],

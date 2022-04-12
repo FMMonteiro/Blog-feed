@@ -1,4 +1,25 @@
+@import "src/app/ui/theming/_utilities.scss";
+
 /* You can add global styles to this file, and also import other style files */
 body {
   margin: 0;
+
+  /* Font family */
+  font-family: "Lato", sans-serif;
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #ffffff;
+  }
+
+  h1 {
+    font-size: cr(32px);
+  }
+
+  h2 {
+    font-size: cr(22px);
+  }
 }

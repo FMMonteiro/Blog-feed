@@ -51,7 +51,11 @@ export class CommentFormComponent implements OnInit {
   public onSubmit(ev: Event): void {
     ev.preventDefault();
 
-    console.log('onsubmit pressed');
+    Object.values(this.form.controls).forEach((control) => {
+      if (typeof control.value === 'string' && control.errors === null) {
+        control.setValue(control.value.trim());
+      }
+    });
 
     this.form.markAllAsTouched();
 

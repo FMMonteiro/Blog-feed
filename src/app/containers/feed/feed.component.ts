@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { FeedService } from './feed.service';
@@ -13,7 +14,7 @@ export class FeedComponent implements OnInit {
   public posts$: Observable<PostData[]> = new Observable<PostData[]>();
   public colors = ['red', 'blue', 'green', 'cyan', 'black', 'brown', 'coral'];
 
-  constructor(private service: FeedService) {}
+  constructor(private service: FeedService, private router: Router) {}
 
   public ngOnInit(): void {
     // console.log('feed on init');
@@ -43,8 +44,17 @@ export class FeedComponent implements OnInit {
 
   public getInitials(user: string): string {
     const splitedName: string[] = user.split(' ');
-    console.log('initials');
 
     return splitedName[0].charAt(0) + splitedName[1].charAt(0);
+  }
+
+  public seeMoreDetails(
+    ev: MouseEvent,
+    id: number,
+    color: string | undefined
+  ): void {
+    ev.preventDefault();
+
+    window.open('/feed/' + id + '?user=' + color, '_blank');
   }
 }

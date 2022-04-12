@@ -18,6 +18,8 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
   public post$: Observable<PostData> = new Observable<PostData>();
   public comments$: Observable<any[]> = new Observable<any[]>();
   public postId: number = 0;
+  public userColor: string = 'red';
+  public commentsCount: number = 0;
   private destroyer$: Subject<void>;
 
   constructor(
@@ -32,11 +34,17 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
     this.activeRoute.params
       .pipe(takeUntil(this.destroyer$))
       .subscribe((params: Params) => {
-        if (params?.slug) {
-          this.post$ = this.service.getSinglePost(params.slug).pipe(
+        if (params?.id) {
+          this.post$ = this.service.getSinglePost(params.id).pipe(
             tap((info) => {
               this.postId = info.id;
-              this.comments$ = this.service.getPostComments(info.id);
+              this.comments$ = this.service.getPostComments(info.id).pipe(
+                tap((res) => {
+                  if (res?.length > 0) {
+                    this.commentsCount = res.length;
+                  }
+                })
+              );
             }),
             catchError((err) => {
               console.log(err);
@@ -46,7 +54,7 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
               return of({} as PostData);
             })
           );
-          // this.service.getSinglePost(params.slug).subscribe(
+          // this.service.getSinglePost(params.id).subscribe(
           //   (post) => {
           //     console.log(post);
           //   },
@@ -60,26 +68,34 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
           // );
         }
 
-        // this.getContentPage(slug);
+        // this.getContentPage(id);
       });
+    this.activeRoute.queryParams.subscribe((params: Params) => {
+      console.log(params);
+      if (params?.user && this.checkIfColorIsValid(params.user)) {
+        this.userColor = params.user;
+      }
+    });
+  }
+
+  public getInitials(user: string): string {
+    const splitedName: string[] = user.split(' ');
+
+    return splitedName[0].charAt(0) + splitedName[1].charAt(0);
   }
 
   public ngOnDestroy(): void {
     this.destroyer$.next();
   }
 
+  public checkIfColorIsValid(color: string): boolean {
+    const savedWords: string[] = ['initial', 'unset', 'inherit'];
+    let s = new Option().style;
+    s.color = color;
+    return s.color == color && savedWords.indexOf(color) === -1;
+  }
+
   public handleFormSubmission(event: CommentData): void {
-    console.log(event);
-
-    // this.service.updateComment(9, event).subscribe();
-
-    // "id": 7,
-    //   "postId": 2,
-    //   "parent_id": null,
-    //   "user": "Natashia",
-    //   "date": "2016-03-17",
-    //   "
-
     this.service
       .addComment(this.postId, {
         ...event,
@@ -89,11 +105,16 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
         () => {
           console.log('success on form adding comment');
           this.commentForm.form.reset();
-          this.comments$ = this.service.getPostComments(this.postId);
+          this.comments$ = this.service.getPostComments(this.postId).pipe(
+            tap((res) => {
+              if (res?.length > 0) {
+                this.commentsCount = res.length;
+              }
+            })
+          );
         },
         (error: HttpErrorResponse) => {
           console.log(error);
-          // snackbar?
         }
       );
   }
