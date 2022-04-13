@@ -3,6 +3,7 @@
 ![Blog Feed App](./src/assets/gif.gif)
 
 [![Demo](https://img.shields.io/badge/Go-to_the_app-red.svg?style=flat-square)](https://6256e2eeb065202dc6671de2--silly-custard-0bbae2.netlify.app/feed)
+
 Note: For the demo to work, the server needs to be running on localhost:9000.
 
 ## Introduction
@@ -54,6 +55,12 @@ $ ng serve
 
 ## Run unit tests
 
+
+```
+
+## Run tests
+
+```sh
 # Run the tests
 
 $ ng test
