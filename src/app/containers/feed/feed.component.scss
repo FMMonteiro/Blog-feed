@@ -20,6 +20,17 @@
       padding: 16px;
       margin-bottom: 24px;
 
+      .favorite-btn {
+        background-color: transparent;
+        border: none;
+
+        img {
+          width: 24px;
+          height: 24px;
+          cursor: pointer;
+        }
+      }
+
       &:hover {
         background-color: #f2f0ef;
 
@@ -55,6 +66,7 @@
         }
 
         .date {
+          margin-left: 12px;
           @media (max-width: 768px) {
             font-size: cr(14px);
           }

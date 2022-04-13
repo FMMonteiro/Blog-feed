@@ -13,6 +13,14 @@
                 {{ getInitials(item.author) }}
               </div>
               <p class="author">{{ item.author }}</p>
+              <button class="favorite-btn" (click)="setFavorite($event, item)">
+                <ng-container *ngIf="item.isFavorite; else notFavorite">
+                  <img src="/assets/star.png" alt="star" />
+                </ng-container>
+                <ng-template #notFavorite>
+                  <img src="/assets/star_outline.png" alt="star outlined" />
+                </ng-template>
+              </button>
               <p class="date">{{ item.publish_date | date: "mediumDate" }}</p>
             </header>
             <h3>{{ item.title }}</h3>
@@ -35,6 +43,9 @@
                 <img src="/assets/link.png" alt="link" />
                 <span>See more</span>
               </button>
+              <!-- <button type="button" (click)="setFavorite($event, item)">
+                <span>Set favorite</span>
+              </button> -->
               <!-- Click
               <a [routerLink]="'/feed/' + item.id" target="_blank">here</a> to
               see more details. -->

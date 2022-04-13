@@ -19,6 +19,14 @@
           </p>
         </div>
         <div class="about">
+          <button class="favorite-btn" (click)="setFavorite($event, item)">
+            <ng-container *ngIf="item.isFavorite; else notFavorite">
+              <img src="/assets/star.png" alt="star" />
+            </ng-container>
+            <ng-template #notFavorite>
+              <img src="/assets/star_outline.png" alt="star outlined" />
+            </ng-template>
+          </button>
           <a
             href="https://facebook.com"
             target="_blank"

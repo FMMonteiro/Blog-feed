@@ -23,8 +23,8 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
   private destroyer$: Subject<void>;
 
   constructor(
-    private activeRoute: ActivatedRoute,
     private service: FeedService,
+    private activeRoute: ActivatedRoute,
     private router: Router
   ) {
     this.destroyer$ = new Subject<void>();
@@ -38,6 +38,16 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
           this.post$ = this.service.getSinglePost(params.id).pipe(
             tap((info) => {
               this.postId = info.id;
+              let store;
+              if (localStorage.getItem('favorites')) {
+                store = JSON.parse(
+                  localStorage?.getItem('favorites') || [].toString()
+                );
+                if (Array.isArray(store)) {
+                  info.isFavorite = store.indexOf(info.id) > -1 ? true : false;
+                }
+              }
+
               this.comments$ = this.service.getPostComments(info.id).pipe(
                 tap((res) => {
                   if (res?.length > 0) {
@@ -117,5 +127,11 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
           console.log(error);
         }
       );
+  }
+
+  public setFavorite(ev: MouseEvent, item: PostData): void {
+    ev.preventDefault();
+
+    this.service.setFavorite(item);
   }
 }

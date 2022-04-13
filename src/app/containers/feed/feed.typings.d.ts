@@ -8,6 +8,7 @@ export interface PostData {
   content: string;
   avatar_color?: string;
   comments?: CommentData[];
+  isFavorite?: boolean;
 }
 
 export interface CommentData {
