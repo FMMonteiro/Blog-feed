@@ -57,31 +57,13 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
               );
             }),
             catchError((err) => {
-              console.log(err);
-              // this.router.navigate(['/feed']);
               this.router.navigate(['/error']);
-              // return of();
               return of({} as PostData);
             })
           );
-          // this.service.getSinglePost(params.id).subscribe(
-          //   (post) => {
-          //     console.log(post);
-          //   },
-          //   (error: HttpErrorResponse) => {
-          //     console.log(error);
-          //     // no caso do id nao exister mandar pra pagina anterior ou mostrar uma pagina de erro a dizer q n existe?
-          //     // posso mandar pra uma rota de /error visto q tou noutra tab
-          //     // fazer no fim
-          //     this.router.navigate(['/feed']);
-          //   }
-          // );
         }
-
-        // this.getContentPage(id);
       });
     this.activeRoute.queryParams.subscribe((params: Params) => {
-      console.log(params);
       if (params?.user && this.checkIfColorIsValid(params.user)) {
         this.userColor = params.user;
       }
@@ -113,7 +95,6 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
       })
       .subscribe(
         () => {
-          console.log('success on form adding comment');
           this.commentForm.form.reset();
           this.comments$ = this.service.getPostComments(this.postId).pipe(
             tap((res) => {

@@ -10,9 +10,6 @@ export class FeedService {
   constructor(private client: HttpClient) {}
 
   public getFeedPosts(): Observable<PostData[]> {
-    // const endpoint: string = 'http://localhost:9000/posts';
-    // const endpoint: string =
-    //   'http://localhost:9000/posts?_sort=publish_date&_order=desc&_embed=comments';
     const endpoint: string = `${environment.api_url}posts?_sort=publish_date&_order=desc&_embed=comments`;
 
     return this.client.get(endpoint, {}).pipe(first()) as Observable<
@@ -50,7 +47,6 @@ export class FeedService {
     let store;
     if (localStorage.getItem('favorites')) {
       store = JSON.parse(localStorage?.getItem('favorites') || '');
-      console.log(store);
       if (Array.isArray(store)) {
         const index: number = store.indexOf(item.id);
         if (index > -1) {

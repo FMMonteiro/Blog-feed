@@ -14,13 +14,7 @@ import { FeedService } from './feed.service';
 @NgModule({
   declarations: [FeedComponent, PostDetailsComponent, CommentFormComponent],
   exports: [RouterModule],
-  imports: [
-    RouterModule.forChild(routes),
-    CommonModule,
-    // BrowserModule,
-    // FormsModule,
-    ReactiveFormsModule,
-  ],
+  imports: [RouterModule.forChild(routes), CommonModule, ReactiveFormsModule],
   providers: [],
 })
 export class FeedModule {}

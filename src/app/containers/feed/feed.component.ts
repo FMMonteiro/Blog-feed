@@ -58,36 +58,4 @@ export class FeedComponent implements OnInit {
 
     this.service.setFavorite(item);
   }
-  // public setFavorite(ev: MouseEvent, item: PostData): void {
-  //   ev.preventDefault();
-
-  //   let store;
-  //   if (localStorage.getItem('favorites')) {
-  //     store = JSON.parse(localStorage?.getItem('favorites') || '');
-  //     console.log(store);
-  //     if (Array.isArray(store)) {
-  //       const index: number = store.indexOf(item.id);
-  //       if (index > -1) {
-  //         item.isFavorite = false;
-  //         store.splice(index, 1);
-  //       } else {
-  //         item.isFavorite = true;
-  //         store.push(item.id);
-  //       }
-  //       localStorage.setItem('favorites', JSON.stringify(store));
-  //     } else {
-  //       let array = Array.from(store);
-
-  //       const index = array.indexOf(item.id);
-  //       if (index > -1) {
-  //         array.splice(index, 1);
-  //       } else {
-  //         array.push(item.id);
-  //       }
-  //       localStorage.setItem('favorites', JSON.stringify(array));
-  //     }
-  //   } else {
-  //     localStorage.setItem('favorites', JSON.stringify([item.id]));
-  //   }
-  // }
 }

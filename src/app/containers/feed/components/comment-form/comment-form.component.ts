@@ -1,20 +1,11 @@
-import { DatePipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
-  Input,
   OnInit,
   Output,
-  ViewChild,
 } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CONSTANTS } from 'src/app/shared/constants';
 import { CommentData } from '../../feed.typings';
 
@@ -29,12 +20,9 @@ export class CommentFormComponent implements OnInit {
 
   @Output() public formData: EventEmitter<CommentData> = new EventEmitter();
 
-  constructor(private formBuild: FormBuilder) {
-    //   this.waiting$ = new BehaviorSubject(false);
-  }
+  constructor(private formBuild: FormBuilder) {}
 
   public ngOnInit(): void {
-    console.log('init form');
     this.form = this.createFormGroup();
   }
 
@@ -60,8 +48,6 @@ export class CommentFormComponent implements OnInit {
     this.form.markAllAsTouched();
 
     if (!this.form.valid) {
-      console.log('form invalid');
-
       return;
     } else {
       const now: Date = new Date();
