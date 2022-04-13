@@ -53,9 +53,6 @@ $ npm install
 
 $ ng serve
 
-## Run unit tests
-
-
 ```
 
 ## Run tests
